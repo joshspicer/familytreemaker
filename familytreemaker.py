@@ -24,7 +24,7 @@ Louis XIV and saving the image in LouisXIVfamily.png.
 
 """
 
-__author__ = "Adrien Vergé"
+__author__ = "Adrien Vergé & Josh Spicer"
 __copyright__ = "Copyright 2013, Adrien Vergé"
 __license__ = "GPL"
 __version__ = "1.0"
@@ -83,17 +83,18 @@ class Person:
 				'  %d households' % len(self.households)
 
 	def graphviz(self):
-		label = self.name
+		label = str(self.name).upper()
 		if 'surname' in self.attr:
-			label += '\\n« ' + str(self.attr['surname']) + '»'
+			label += ' ' + str(self.attr['surname']) + ''
 		if 'birthday' in self.attr:
-			label += '\\n' + str(self.attr['birthday'])
-			if 'deathday' in self.attr:
-				label += ' † ' + str(self.attr['deathday'])
-		elif 'deathday' in self.attr:
-			label += '\\n† ' + str(self.attr['deathday'])
+			label += '\\nb. ' + str(self.attr['birthday'])
+		if 'natday' in self.attr:
+			label += '\\n' + f"n. {str(self.attr['natday'])}"	
+		if 'deathday' in self.attr:
+			label += '\\nd. ' + str(self.attr['deathday'])
 		if 'notes' in self.attr:
 			label += '\\n' + str(self.attr['notes'])
+	
 		opts = ['label="' + label + '"']
 		opts.append('style=filled')
 		opts.append('fillcolor=' + ('F' in self.attr and 'bisque' or
